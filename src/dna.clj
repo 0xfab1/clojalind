@@ -5,4 +5,4 @@
 
 (let [input (upper-case (slurp "dna.in"))
       counts (zipmap [\A \C \G \T] (repeat 4 0))]
-    (println (reduce helper counts input)))
+    (prn (reduce helper counts input)))
