@@ -37,4 +37,4 @@
         parsed (all-records lines)
         augmented (augment parsed)
         max-entry (max-gc augmented)]
-    (println (join "\n" [(:name max-entry) (:gc max-entry)]))))
+    (prn (join "\n" [(:name max-entry) (:gc max-entry)]))))
