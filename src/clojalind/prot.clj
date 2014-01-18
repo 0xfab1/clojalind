@@ -1,4 +1,4 @@
-(use 'clojure.string)
+(use '[clojure.string :only [split upper-case]])
 
 (defn read-db
   []

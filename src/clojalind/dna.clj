@@ -1,4 +1,4 @@
-(use 'clojure.string)
+(use '[clojure.string :only [join upper-case]])
 
 (let [acgt [\A \C \G \T]
       input (upper-case (slurp "../../data/dna.in"))

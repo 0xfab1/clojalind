@@ -1,5 +1,5 @@
 (use 'clojure.java.io)
-(use 'clojure.string)
+(use '[clojure.string :only [join upper-case]])
 
 (defn one-record
   [lines]
@@ -21,20 +21,20 @@
 
 (defn augment
   [parsed]
-    (map #(assoc %1 :gc (calc-gc (:seq %1))) parsed))
+  (map #(assoc %1 :gc (calc-gc (:seq %1))) parsed))
 
 (defn max-gc
-  [items]
-  (if (empty? items)
-    {:name nil :gc -1}
-    (let [fst (first items)
-          fst-gc (calc-gc (:seq fst))
-          snd (max-gc (rest items))]
-      (if (> fst-gc (:gc snd)) fst snd))))
+  ([]
+   {:name nil :gc -1})
+  ([fst & more]
+   (let [fst-gc (calc-gc (:seq fst))
+         snd (apply max-gc (or more []))]
+     (if (> fst-gc (:gc snd)) fst snd)))
+  )
 
 (with-open [rdr (reader "../../data/gc.in")]
   (let [lines (line-seq rdr)
         parsed (all-records lines)
         augmented (augment parsed)
-        max-entry (max-gc augmented)]
+        max-entry (apply max-gc augmented)]
     (prn (join "\n" [(:name max-entry) (:gc max-entry)]))))
