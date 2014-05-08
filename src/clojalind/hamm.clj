@@ -1,13 +1,13 @@
-(use 'clojure.java.io)
-(use '[clojure.string :only [join upper-case]])
+(require '[clojure.string :as string]
+         '[clojure.java.io :as io])
 
-(defn ham
+(defn hamm
   ([] 0)
-  ([fst snd & more] (+ (if (= fst snd) 0 1) (apply ham more))))
+  ([p q & more]
+   (+ (if (= p q) 0 1) (apply hamm more))))
 
-(with-open [rdr (reader "../../data/hamm.in")]
+(with-open [rdr (io/reader "../../data/hamm.in")]
   (let [lines (line-seq rdr)
-        fst (first lines)
-        snd (second lines)
+        [fst snd & _] lines
         mix (interleave fst snd)]
-    (prn (apply ham mix))))
+    (println (apply hamm mix))))

@@ -1,7 +1,5 @@
-(use '[clojure.string :only [join upper-case]])
+(require '[clojure.string :as string])
 
-(let [acgt [\A \C \G \T]
-      input (upper-case (slurp "../../data/dna.in"))
-      counts (zipmap acgt (repeat 4 0))
-      final-tally (reduce #(assoc %1 %2 (inc (get %1 %2))) counts input)]
-    (prn (join " " (map #(get final-tally %) acgt))))
+(let [input (string/upper-case (slurp "../../data/dna.in"))
+      freqs (frequencies input)]
+    (println (string/join " " (map freqs "ACGT"))))

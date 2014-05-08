@@ -1,4 +1,4 @@
-(use '[clojure.string :only [upper-case]])
+(require '[clojure.string :as string])
 
-(let [input (upper-case (slurp "../../data/rna.in"))]
-  (prn (apply str (map #(if (= %1 \T) \U %) input))))
+(let [input (string/upper-case (slurp "../../data/rna.in"))]
+  (println (string/replace input \T \U)))

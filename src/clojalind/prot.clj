@@ -1,21 +1,20 @@
-(use '[clojure.string :only [split upper-case]])
+(require '[clojure.string :as string])
 
 (defn read-db
   []
   (let [input (slurp "../../data/prot.db")]
-    (apply hash-map (split input #"\s+"))
-    ))
+    (apply hash-map (string/split input #"\s+"))))
 
 (defn translate
   [dict rna]
   (if (empty? rna)
     ""
-    (let [codon (apply str (take 3 rna))
-          rmn (drop 3 rna)
-          aa (get dict codon)
+    (let [[x y z & more] rna
+          codon (str x y z)
+          aa (dict codon)
           stop (= aa "*")]
-      (if stop "" (str aa (translate dict rmn))))))
+      (if stop "" (str aa (translate dict more))))))
 
-(let [input (upper-case (slurp "../../data/prot.in"))
+(let [input (string/upper-case (slurp "../../data/prot.in"))
       dict (read-db)]
-  (prn (translate dict input)))
+  (println (translate dict input)))

@@ -1,5 +1,5 @@
-(use '[clojure.string :only [join upper-case]])
+(require '[clojure.string :as string])
 
-(let [input (upper-case (slurp "../../data/revc.in"))
-      dict (zipmap [\A \C \G \T] [\T \G \C \A])]
-  (prn (reverse (join "" (map #(get dict %) input)))))
+(let [input (string/upper-case (slurp "../../data/revc.in"))
+      dict (zipmap "ACGT" "TGCA")]
+  (println (apply str (reverse (map dict input)))))
