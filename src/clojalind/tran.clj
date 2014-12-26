@@ -1,13 +1,6 @@
-(ns clojalind
-  (:require [clojure.java.io :as io]))
-
-(defn read-fasta [lines]
-  (->> lines
-       (partition-by #(= \> (first %)))
-       (partition 2)
-       (map (fn [[[[_ & name]] seqs]]
-              {:name (apply str name)
-               :seq (apply str seqs)}))))
+(ns clojalind.tran
+  (:require [clojure.java.io :as io]
+            [clojalind.utils :as utils]))
 
 (defn calc-ti-tv-ratio [s1 s2]
   (let [t1-set #{"AG" "GA" "TC" "CT"}
@@ -24,7 +17,7 @@
 
 (with-open [rdr (io/reader "data/tran.in")]
   (let [lines (line-seq rdr)
-        fasta (read-fasta lines)
+        fasta (utils/read-fasta lines)
         s1 (:seq (first fasta))
         s2 (:seq (second fasta))]
     (println (calc-ti-tv-ratio s1 s2))))

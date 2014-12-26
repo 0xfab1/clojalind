@@ -1,4 +1,4 @@
-(ns clojalind
+(ns clojalind.hamm
   (:require [clojure.string :as string]
             [clojure.java.io :as io]))
 
@@ -9,6 +9,6 @@
 
 (with-open [rdr (io/reader "data/hamm.in")]
   (let [lines (line-seq rdr)
-        [fst snd & _] lines
+        [fst snd & _] lines  ; take only the first two entries
         mix (interleave fst snd)]
     (println (apply hamm mix))))

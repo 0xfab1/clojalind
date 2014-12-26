@@ -1,4 +1,4 @@
-(ns clojalind
+(ns clojalind.revc
   (:require [clojure.string :as string]))
 
 (let [input (string/upper-case (slurp "data/revc.in"))

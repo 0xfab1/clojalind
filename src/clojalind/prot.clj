@@ -1,4 +1,4 @@
-(ns clojalind
+(ns clojalind.prot
   (:require [clojure.string :as string]))
 
 (defn read-db
