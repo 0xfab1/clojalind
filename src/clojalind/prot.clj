@@ -1,8 +1,9 @@
-(require '[clojure.string :as string])
+(ns clojalind
+  (:require [clojure.string :as string]))
 
 (defn read-db
   []
-  (let [input (slurp "../../data/prot.db")]
+  (let [input (slurp "data/prot.db")]
     (apply hash-map (string/split input #"\s+"))))
 
 (defn translate
@@ -15,6 +16,6 @@
           stop (= aa "*")]
       (if stop "" (str aa (translate dict more))))))
 
-(let [input (string/upper-case (slurp "../../data/prot.in"))
+(let [input (string/upper-case (slurp "data/prot.in"))
       dict (read-db)]
   (println (translate dict input)))

@@ -1,5 +1,6 @@
-(require '[clojure.java.io :as io]
-         '[clojure.string :as string])
+(ns clojalind
+  (:require [clojure.java.io :as io]
+            [clojure.string :as string]))
 
 (defn revcomp [input]
   (let [dict (zipmap "ACGT" "TGCA")]
@@ -7,7 +8,7 @@
 
 (defn read-db
   []
-  (let [input (slurp "../../data/prot.db")]
+  (let [input (slurp "data/prot.db")]
     (->>
       (string/split input #"\s+")
       (map #(string/replace % \U \T))
@@ -40,7 +41,7 @@
     (mapcat fun prefixes)))
 
 
-  (with-open [rdr (io/reader "../../data/orf.in")]
+  (with-open [rdr (io/reader "data/orf.in")]
     (let [prot-db (read-db)
           lines (line-seq rdr)
           dnaseq (apply str (rest lines))

@@ -1,4 +1,5 @@
-(require '[clojure.java.io :as io])
+(ns clojalind
+  (:require [clojure.java.io :as io]))
 
 (defn one-record
   [lines]
@@ -25,7 +26,7 @@
   [parsed]
   (map #(->> % :seq calc-gc (assoc % :gc)) parsed))
 
-(with-open [rdr (io/reader "../../data/gc.in")]
+(with-open [rdr (io/reader "data/gc.in")]
   (let [lines (line-seq rdr)
         raw-entries (all-records lines)
         calc-entries (augment raw-entries)

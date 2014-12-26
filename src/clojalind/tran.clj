@@ -1,4 +1,5 @@
-(require '[clojure.java.io :as io])
+(ns clojalind
+  (:require [clojure.java.io :as io]))
 
 (defn read-fasta [lines]
   (->> lines
@@ -21,7 +22,7 @@
         tv-count (- (count ti-tv-seq) ti-count)]
     (float (/ ti-count tv-count))))
 
-(with-open [rdr (io/reader "../../data/tran.in")]
+(with-open [rdr (io/reader "data/tran.in")]
   (let [lines (line-seq rdr)
         fasta (read-fasta lines)
         s1 (:seq (first fasta))
